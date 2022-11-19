@@ -54,7 +54,8 @@ def colorize(string, indexes):
     str_list = [ExtendedChar(char) for char in string]
     for i, sub in enumerate(subs):
         cur_sub, cur_indexes = sub
-
+        if cur_indexes is None:
+            continue
         color = col_seq[i % len(col_seq)]
         for index in cur_indexes:
             for j in range(index, index + len(cur_sub)):

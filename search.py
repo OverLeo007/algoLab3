@@ -74,11 +74,12 @@ def find_substr(string: str, sub_string: str) -> Optional[tuple[int, str]]:
         next_sym = compare(string[:len(sub_string)], sub_string, offset_table)
         index += next_sym
         string = string[next_sym:]
+        # print(string)
         if next_sym == 0:
             if len(sub_string) == 1:
                 string = string[offset_table["*"]:]
             else:
-                string = string[offset_table["*"] - 1:]
+                string = string[1:]
             break
 
     return index, string
@@ -114,8 +115,8 @@ def get_all_indexes(string: str, substring: str,
         res = find_substr(string, substring)
         if res:
             index, string = res
-            indexes.append(index + (indexes[-1] + len(substring) -
-                                    int(len(substring) != 1) if indexes else 0))
+            indexes.append(index + (indexes[-1] + 1 if indexes else 0))
+
         else:
             break
     if indexes:
@@ -160,5 +161,6 @@ def search(string: str, sub_string: Union[str, list[str]],
 
 
 if __name__ == '__main__':
-    print(search("aAbCbccaabc", "AbC", method="last", count=None, case_sensitivity=False))
+    print("apapapap", "apap")
+    print(search("aaaaa", "a"))
     # print(compare("данные", "данные", find_offset("данные")))
