@@ -24,7 +24,7 @@ class ExtendedChar:  # pylint: disable=R0903
     Класс символа, содержащего дополнительно его цвет
     """
 
-    def __init__(self, char, color=0):
+    def __init__(self, char: str, color: int = 0):
         """
         Инициализация экземпляра раскрашенного символа
         :param char: символ
@@ -41,7 +41,7 @@ class ExtendedChar:  # pylint: disable=R0903
         return f"\033[{self.color};{30 if self.color else 0}m{self.char}\033[0;0m"
 
 
-def colorize(string, indexes):
+def colorize(string: str, indexes: dict[str: tuple[int, ...]]):
     """
     Функция раскраски строки
     :param string: строка
