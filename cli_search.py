@@ -19,7 +19,7 @@ WHITE = 107
 col_seq = [RED, YELLOW, GREEN, BLUE, CYAN, PURPLE]
 
 
-class ExtendedChar:
+class ExtendedChar:  # pylint: disable=R0903
     """
     Класс символа, содержащего дополнительно его цвет
     """
@@ -88,17 +88,18 @@ def main():
     args = parser.parse_args()
 
     if (args.string is None and args.path is None) or args.sub_string is None:
-        raise parser.error("Строка или шаблон(ы) не указан(ы)")
-    elif len(args.sub_string) > 6:
-        raise parser.error(f"Слишком большое количество шаблонов ({len(args.sub_string)} > 6)")
+        raise parser.error("Строка или шаблон(ы) не указан(ы)")  # pylint: disable=E0702
+    if len(args.sub_string) > 6:
+        raise parser.error(  # pylint: disable=E0702
+            f"Слишком большое количество шаблонов "
+            f"({len(args.sub_string)} > 6)")
 
     if args.path is not None:
         try:
             with open(args.path, "r", encoding="utf-8") as file:
                 args.string = file.read()
-        except FileNotFoundError:
-            raise parser.error(f"Файл с таким именем не найден")
-    # args.sub_string = args.sub_string[0] if len(args.sub_string) == 1 else args.sub_string
+        except FileNotFoundError as exc:
+            raise parser.error(f"Файл с именем {exc.filename} не найден")  # pylint: disable=E0702
 
     indexes = search(args.string,
                      args.sub_string,
